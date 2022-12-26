@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "166735013310",
+    "firebase_url": "https://flooddetection-ec982-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "flooddetection-ec982",
+    "storage_bucket": "flooddetection-ec982.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166735013310:android:e6920ce57e9526fc2f05ef",
+        "android_client_info": {
+          "package_name": "com.imtuc.flooddetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166735013310-vg9kg9cn06n79eni9lqqoulqiqbnv36n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKopFTHj5rEwBblEQn7uaKP-yTKVyDJqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "166735013310-vg9kg9cn06n79eni9lqqoulqiqbnv36n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

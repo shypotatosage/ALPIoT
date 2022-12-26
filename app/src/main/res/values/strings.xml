@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FloodDetection</string>
+    <string name="hulu">Data Hulu</string>
+    <string name="hilir">Data Hilir</string>
+    <string name="app">Flood Detection</string>
+    <string name="suhu">Data Suhu</string>
+</resources>
