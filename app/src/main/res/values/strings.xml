@@ -4,4 +4,6 @@
     <string name="hilir">Data Hilir</string>
     <string name="app">Flood Detection</string>
     <string name="suhu">Data Suhu</string>
+    <string name="sungai1">Sungai 1</string>
+    <string name="sungai2">Sungai 2</string>
 </resources>

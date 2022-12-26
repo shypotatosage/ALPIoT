@@ -19,14 +19,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var huluArrayList: ArrayList<HuluHilir> = arrayListOf()
+    private var hulu2ArrayList: ArrayList<HuluHilir> = arrayListOf()
     private var hilirArrayList: ArrayList<HuluHilir> = arrayListOf()
+    private var hilir2ArrayList: ArrayList<HuluHilir> = arrayListOf()
     private var suhuArrayList: ArrayList<Suhu> = arrayListOf()
+    private var suhu2ArrayList: ArrayList<Suhu> = arrayListOf()
     private lateinit var adapterHulu: Adapter
+    private lateinit var adapterHulu2: Adapter
     private lateinit var adapterHilir: Adapter
+    private lateinit var adapterHilir2: Adapter
     private lateinit var adapterSuhu: SuhuAdapter
+    private lateinit var adapterSuhu2: SuhuAdapter
     private lateinit var manager1: LinearLayoutManager
     private lateinit var manager2: LinearLayoutManager
     private lateinit var manager3: LinearLayoutManager
+    private lateinit var manager12: LinearLayoutManager
+    private lateinit var manager22: LinearLayoutManager
+    private lateinit var manager32: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,22 +43,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setAdapter()
+        getDataHulu2()
         getDataHulu()
+        getDataHilir2()
         getDataHilir()
+        getDataSuhu2()
         getDataSuhu()
     }
 
     private fun getDataHulu() {
         val database = Firebase.database
-        val ref = database.getReference("hulu")
+        val ref = database.getReference("sungai1")
 
         ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     var tmpArrList = arrayListOf<HuluHilir>()
 
-                    for (classSnapshot in snapshot.children) {
-                        var distance = classSnapshot.child("distance").getValue().toString()
+                    for (classSnapshot in snapshot.child("hulu").children) {
+                        var distance = classSnapshot.child("hasil").getValue().toString()
                         var datetime = classSnapshot.child("timestamp").getValue().toString()
 
                         var hulu = HuluHilir(distance, datetime)
@@ -74,17 +86,52 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun getDataHilir() {
+    private fun getDataHulu2() {
         val database = Firebase.database
-        val ref = database.getReference("hilir")
+        val ref = database.getReference("sungai2")
 
         ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     var tmpArrList = arrayListOf<HuluHilir>()
 
-                    for (classSnapshot in snapshot.children) {
-                        var distance = classSnapshot.child("distance").getValue().toString()
+                    for (classSnapshot in snapshot.child("hulu").children) {
+                        var distance = classSnapshot.child("hasil").getValue().toString()
+                        var datetime = classSnapshot.child("timestamp").getValue().toString()
+
+                        var hulu = HuluHilir(distance, datetime)
+
+                        tmpArrList.add(hulu!!)
+                    }
+
+                    hulu2ArrayList.clear()
+                    hulu2ArrayList.addAll(tmpArrList)
+                    tmpArrList.clear()
+
+                    adapterHulu2.notifyDataSetChanged()
+
+                    binding.hulu2Rv.smoothScrollToPosition(binding.hulu2Rv.adapter!!.itemCount - 1)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Data", error.getMessage()) //Don't ignore errors!
+            }
+
+        })
+    }
+
+    private fun getDataHilir() {
+        val database = Firebase.database
+        val ref = database.getReference("sungai1")
+
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    var tmpArrList = arrayListOf<HuluHilir>()
+
+                    for (classSnapshot in snapshot.child("hilir").children) {
+                        var distance = classSnapshot.child("hasil").getValue().toString()
                         var datetime = classSnapshot.child("timestamp").getValue().toString()
 
                         var hilir = HuluHilir(distance, datetime)
@@ -109,16 +156,51 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun getDataHilir2() {
+        val database = Firebase.database
+        val ref = database.getReference("sungai2")
+
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    var tmpArrList = arrayListOf<HuluHilir>()
+
+                    for (classSnapshot in snapshot.child("hilir").children) {
+                        var distance = classSnapshot.child("hasil").getValue().toString()
+                        var datetime = classSnapshot.child("timestamp").getValue().toString()
+
+                        var hilir = HuluHilir(distance, datetime)
+
+                        tmpArrList.add(hilir!!)
+                    }
+
+                    hilir2ArrayList.clear()
+                    hilir2ArrayList.addAll(tmpArrList)
+                    tmpArrList.clear()
+
+                    adapterHilir2.notifyDataSetChanged()
+
+                    binding.hilir2Rv.smoothScrollToPosition(binding.hilir2Rv.adapter!!.itemCount - 1)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Data", error.getMessage()) //Don't ignore errors!
+            }
+
+        })
+    }
+
     private fun getDataSuhu() {
         val database = Firebase.database
-        val ref = database.getReference("temp")
+        val ref = database.getReference("sungai1")
 
         ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     var tmpArrList = arrayListOf<Suhu>()
 
-                    for (classSnapshot in snapshot.children) {
+                    for (classSnapshot in snapshot.child("suhu").children) {
                         var celcius = classSnapshot.child("celcius").getValue().toString()
                         var fahrenheit = classSnapshot.child("fahrenheit").getValue().toString()
                         var datetime = classSnapshot.child("timestamp").getValue().toString()
@@ -132,9 +214,45 @@ class MainActivity : AppCompatActivity() {
                     suhuArrayList.addAll(tmpArrList)
                     tmpArrList.clear()
 
-                    adapterHilir.notifyDataSetChanged()
+                    adapterSuhu.notifyDataSetChanged()
 
-                    binding.suhuRv.smoothScrollToPosition(binding.hilirRv.adapter!!.itemCount - 1)
+                    binding.suhuRv.smoothScrollToPosition(binding.suhuRv.adapter!!.itemCount - 1)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Data", error.getMessage()) //Don't ignore errors!
+            }
+
+        })
+    }
+
+    private fun getDataSuhu2() {
+        val database = Firebase.database
+        val ref = database.getReference("sungai2")
+
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    var tmpArrList = arrayListOf<Suhu>()
+
+                    for (classSnapshot in snapshot.child("suhu").children) {
+                        var celcius = classSnapshot.child("celcius").getValue().toString()
+                        var fahrenheit = classSnapshot.child("fahrenheit").getValue().toString()
+                        var datetime = classSnapshot.child("timestamp").getValue().toString()
+
+                        var suhu = Suhu(celcius, fahrenheit, datetime)
+
+                        tmpArrList.add(suhu!!)
+                    }
+
+                    suhu2ArrayList.clear()
+                    suhu2ArrayList.addAll(tmpArrList)
+                    tmpArrList.clear()
+
+                    adapterSuhu2.notifyDataSetChanged()
+
+                    binding.suhu2Rv.smoothScrollToPosition(binding.suhu2Rv.adapter!!.itemCount - 1)
                 }
             }
 
@@ -175,6 +293,36 @@ class MainActivity : AppCompatActivity() {
 
         binding.suhuRv.layoutManager = manager3
         binding.suhuRv.adapter = adapterSuhu
+
+        //Hulu2
+        adapterHulu2 = Adapter(hulu2ArrayList)
+
+        manager12 = LinearLayoutManager(this)
+        manager12.reverseLayout = true
+        manager12.stackFromEnd = true
+
+        binding.hulu2Rv.layoutManager = manager12
+        binding.hulu2Rv.adapter = adapterHulu2
+
+        //Hilir2
+        adapterHilir2 = Adapter(hilir2ArrayList)
+
+        manager22 = LinearLayoutManager(this)
+        manager22.reverseLayout = true
+        manager22.stackFromEnd = true
+
+        binding.hilir2Rv.layoutManager = manager22
+        binding.hilir2Rv.adapter = adapterHilir2
+
+        //Suhu2
+        adapterSuhu2 = SuhuAdapter(suhu2ArrayList)
+
+        manager32 = LinearLayoutManager(this)
+        manager32.reverseLayout = true
+        manager32.stackFromEnd = true
+
+        binding.suhu2Rv.layoutManager = manager32
+        binding.suhu2Rv.adapter = adapterSuhu2
         
         Log.d("Adapter", "Set Adapter Successful")
 
