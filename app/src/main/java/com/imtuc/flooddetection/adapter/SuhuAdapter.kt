@@ -14,8 +14,7 @@ class SuhuAdapter(val listSuhu: ArrayList<Suhu>):
     class viewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
         val binding = SuhuCardBinding.bind(itemView)
         fun setData(data: Suhu){
-            binding.celcius.text = "Jarak : " + data.celcius
-            binding.fahrenheit.text = "Jarak : " + data.fahrenheit
+            binding.celcius.text = "Suhu : " + data.celcius + "°C"
             binding.time.text = data.datetime
         }
     }

@@ -5,11 +5,9 @@ import android.os.Parcelable
 
 class Suhu(
     var celcius: String = "",
-    var fahrenheit: String = "",
     var datetime: String = ""
 ):Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!
     ) {
@@ -17,7 +15,6 @@ class Suhu(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(celcius)
-        parcel.writeString(fahrenheit)
         parcel.writeString(datetime)
     }
 

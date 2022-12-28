@@ -75,7 +75,9 @@ class MainActivity : AppCompatActivity() {
 
                     adapterHulu.notifyDataSetChanged()
 
-                    binding.huluRv.smoothScrollToPosition(binding.huluRv.adapter!!.itemCount - 1)
+                    if (binding.huluRv.adapter!!.itemCount > 0) {
+                        binding.huluRv.smoothScrollToPosition(binding.huluRv.adapter!!.itemCount - 1)
+                    }
                 }
             }
 
@@ -110,7 +112,9 @@ class MainActivity : AppCompatActivity() {
 
                     adapterHulu2.notifyDataSetChanged()
 
-                    binding.hulu2Rv.smoothScrollToPosition(binding.hulu2Rv.adapter!!.itemCount - 1)
+                    if (binding.hulu2Rv.adapter!!.itemCount > 0) {
+                        binding.hulu2Rv.smoothScrollToPosition(binding.hulu2Rv.adapter!!.itemCount - 1)
+                    }
                 }
             }
 
@@ -145,7 +149,9 @@ class MainActivity : AppCompatActivity() {
 
                     adapterHilir.notifyDataSetChanged()
 
-                    binding.hilirRv.smoothScrollToPosition(binding.hilirRv.adapter!!.itemCount - 1)
+                    if (binding.hilirRv.adapter!!.itemCount > 0) {
+                        binding.hilirRv.smoothScrollToPosition(binding.hilirRv.adapter!!.itemCount - 1)
+                    }
                 }
             }
 
@@ -180,7 +186,9 @@ class MainActivity : AppCompatActivity() {
 
                     adapterHilir2.notifyDataSetChanged()
 
-                    binding.hilir2Rv.smoothScrollToPosition(binding.hilir2Rv.adapter!!.itemCount - 1)
+                    if (binding.hilir2Rv.adapter!!.itemCount > 0) {
+                        binding.hilir2Rv.smoothScrollToPosition(binding.hilir2Rv.adapter!!.itemCount - 1)
+                    }
                 }
             }
 
@@ -201,11 +209,10 @@ class MainActivity : AppCompatActivity() {
                     var tmpArrList = arrayListOf<Suhu>()
 
                     for (classSnapshot in snapshot.child("suhu").children) {
-                        var celcius = classSnapshot.child("celcius").getValue().toString()
-                        var fahrenheit = classSnapshot.child("fahrenheit").getValue().toString()
+                        var celcius = classSnapshot.child("hasil").getValue().toString()
                         var datetime = classSnapshot.child("timestamp").getValue().toString()
 
-                        var suhu = Suhu(celcius, fahrenheit, datetime)
+                        var suhu = Suhu(celcius, datetime)
 
                         tmpArrList.add(suhu!!)
                     }
@@ -216,7 +223,9 @@ class MainActivity : AppCompatActivity() {
 
                     adapterSuhu.notifyDataSetChanged()
 
-                    binding.suhuRv.smoothScrollToPosition(binding.suhuRv.adapter!!.itemCount - 1)
+                    if (binding.suhuRv.adapter!!.itemCount > 0) {
+                        binding.suhuRv.smoothScrollToPosition(binding.suhuRv.adapter!!.itemCount - 1)
+                    }
                 }
             }
 
@@ -237,11 +246,10 @@ class MainActivity : AppCompatActivity() {
                     var tmpArrList = arrayListOf<Suhu>()
 
                     for (classSnapshot in snapshot.child("suhu").children) {
-                        var celcius = classSnapshot.child("celcius").getValue().toString()
-                        var fahrenheit = classSnapshot.child("fahrenheit").getValue().toString()
+                        var celcius = classSnapshot.child("hasil").getValue().toString()
                         var datetime = classSnapshot.child("timestamp").getValue().toString()
 
-                        var suhu = Suhu(celcius, fahrenheit, datetime)
+                        var suhu = Suhu(celcius, datetime)
 
                         tmpArrList.add(suhu!!)
                     }
@@ -252,7 +260,9 @@ class MainActivity : AppCompatActivity() {
 
                     adapterSuhu2.notifyDataSetChanged()
 
-                    binding.suhu2Rv.smoothScrollToPosition(binding.suhu2Rv.adapter!!.itemCount - 1)
+                    if (binding.suhu2Rv.adapter!!.itemCount > 0) {
+                        binding.suhu2Rv.smoothScrollToPosition(binding.suhu2Rv.adapter!!.itemCount - 1)
+                    }
                 }
             }
 
